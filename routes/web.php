@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'teacher'])->group(function () {
     Route::get('/question/all/teacher', [QuestionController::class, 'getAllQuestions'])->name('question.all.teacher');
     Route::get('/question/create/teacher', [QuestionController::class, 'create'])->name('question.create.teacher');
     Route::post('/question/edit/teacher', [QuestionController::class, 'edit'])->name('question.edit.teacher');
@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/question/delete/teacher', [QuestionController::class, 'delete'])->name('question.delete.teacher');
 });
 
-Route::post('/upload/file/teacher', [UploadController::class, 'uploadFile'])->middleware('auth')->name('upload.file.teacher');
+Route::post('/upload/file/teacher', [UploadController::class, 'uploadFile'])->middleware(['auth', 'teacher'])->name('upload.file.teacher');
 
 Route::get('/question/student', [QuestionController::class, 'getQuestion'])->middleware('auth')->name('question.get.student');
 
@@ -49,6 +49,6 @@ Route::get('/question/student', [QuestionController::class, 'getQuestion'])->mid
 Route::post('/answer/store/student', [AnswerController::class, 'storeAnswer'])->middleware('auth')->name('answer.store.student');
 
 Route::get('/result/get/student', [ResultController::class, 'getResult'])->middleware('auth')->name('result.get.student');
-Route::get('/result/get/students/teacher', [ResultController::class, 'getResultStudents'])->middleware('auth')->name('results.get.students.teacher');
+Route::get('/result/get/students/teacher', [ResultController::class, 'getResultStudents'])->middleware(['auth', 'teacher'])->name('results.get.students.teacher');
 
 require __DIR__.'/auth.php';
