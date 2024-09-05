@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     //
+    public function getAllQuestions()
+    {
+        
+    }
+
+    public function getQuestion()
+    {
+
+    }
+
     public function create()
     {
 
@@ -19,7 +29,7 @@ class QuestionController extends Controller
 
     public function store()
     {
-        
+
     }
 
     public function update()

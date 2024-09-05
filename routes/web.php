@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +31,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/question/all/teacher', [QuestionController::class, 'getAllQuestions'])->name('question.all.teacher');
+    Route::get('/question/create/teacher', [QuestionController::class, 'create'])->name('question.create.teacher');
+    Route::post('/question/edit/teacher', [QuestionController::class, 'edit'])->name('question.edit.teacher');
+    Route::put('/question/store/teacher', [QuestionController::class, 'store'])->name('question.store.teacher');
+    Route::patch('/question/update/teacher', [QuestionController::class, 'update'])->name('question.update.teacher');
+    Route::delete('/question/delete/teacher', [QuestionController::class, 'delete'])->name('question.delete.teacher');
+});
+
+Route::post('/upload/file/teacher', [UploadController::class, 'uploadFile'])->middleware('auth')->name('upload.file.teacher');
+
+Route::get('/question/student', [QuestionController::class, 'getQuestion'])->middleware('auth')->name('question.get.student');
+
+//Route::get('/answer/get/student', [AnswerController::class, 'getAnswer'])->middleware('auth')->name('answer.get.student');
+Route::post('/answer/store/student', [AnswerController::class, 'storeAnswer'])->middleware('auth')->name('answer.store.student');
+
+Route::get('/result/get/student', [ResultController::class, 'getResult'])->middleware('auth')->name('result.get.student');
+Route::get('/result/get/students/teacher', [ResultController::class, 'getResultStudents'])->middleware('auth')->name('results.get.students.teacher');
 
 require __DIR__.'/auth.php';
