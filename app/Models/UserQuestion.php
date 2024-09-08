@@ -14,11 +14,11 @@ class UserQuestion extends Model
 
     public function users(): BelongsToMany 
     {
-        return $this->BelongsToMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function questions(): BelongsToMany
     {
-        return $this->BelongsToMany(Question::class);
+        return $this->belongsToMany(Question::class);
     }
 }

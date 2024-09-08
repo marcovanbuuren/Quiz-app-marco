@@ -11,7 +11,7 @@ class AnswerController extends Controller
     //
     public function getAnswer($question_id)
     {
-        $question = Question::where('id', $id);
+        $question = Question::where('id', $id)->get();
         return $question->correct_answer;
     }
 

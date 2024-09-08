@@ -20,14 +20,14 @@ class QuestionController extends Controller
     public function getQuestion()
     {
         $questionsAnsweredIdUser = UserQuestion::where('user_id', Auth::user()->id)->pluck('question_id')->toArray();
-        $questions = Question::whereNot('id', $questionsAnsweredIdUser);
+        $questions = Question::whereNot('id', $questionsAnsweredIdUser)->get();
         $getRandomInt = rand(1, count($questions));
         $counter = 0;
 
         foreach ($questions as $question) {
             $counter++;
             if ($counter == $getRandomInt) {
-                return view('student.question.dashboard');
+                return view('student.question.dashboard')->with('question', $question);
             }
         }
     }
