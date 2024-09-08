@@ -9,9 +9,4 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Question extends Model
 {
     use HasFactory;
-
-    public function users(): BelongsToMany 
-    {
-        return $this->BelongsToMany(User::class);
-    }
 }

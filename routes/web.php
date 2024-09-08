@@ -38,7 +38,7 @@ Route::middleware(['auth', 'teacher'])->group(function () {
     Route::post('/question/edit/teacher', [QuestionController::class, 'edit'])->name('question.edit.teacher');
     Route::put('/question/store/teacher', [QuestionController::class, 'store'])->name('question.store.teacher');
     Route::patch('/question/update/teacher', [QuestionController::class, 'update'])->name('question.update.teacher');
-    Route::delete('/question/delete/teacher', [QuestionController::class, 'delete'])->name('question.delete.teacher');
+    Route::delete('/question/delete/teacher', [QuestionController::class, 'destroy'])->name('question.delete.teacher');
 });
 
 Route::post('/upload/file/teacher', [UploadController::class, 'uploadFile'])->middleware(['auth', 'teacher'])->name('upload.file.teacher');
