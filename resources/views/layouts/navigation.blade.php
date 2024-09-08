@@ -15,6 +15,21 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (Auth::user()->is_teacher == 1)
+                        <x-nav-link :href="route('question.all.teacher')" :active="request()->routeIs('question.all.teacher')">
+                            {{ __('Vragen overzicht') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('results.get.students.teacher')" :active="request()->routeIs('results.get.students.teacher')">
+                            {{ __('Resultaten overzicht') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('question.get.student')" :active="request()->routeIs('question.get.student')">
+                            {{ __('Vragen beantwoorden') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('result.get.student')" :active="request()->routeIs('result.get.student')">
+                            {{ __('Mijn resultaten') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

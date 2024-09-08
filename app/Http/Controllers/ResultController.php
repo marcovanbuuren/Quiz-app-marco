@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserQuestion;
+use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
@@ -11,7 +12,7 @@ class ResultController extends Controller
     public function getResult()
     {
         $results = UserQuestion::where('user_id', Auth::user()->id)->get();
-        $calculatedResults = calculateResult($results);
+        $calculatedResults = $this->calculateResult($results);
 
         return view('student/result/dashboard')->with('results', $calculatedResults);
     }

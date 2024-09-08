@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class IsTeacher
 {
@@ -15,9 +16,9 @@ class IsTeacher
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->is_teacher !== true)
+        if (Auth::user()->is_teacher != true)
         {
-            return redirect()->route('logout');
+            return redirect()->route('login');
         }
         
         return $next($request);

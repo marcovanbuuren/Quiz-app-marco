@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\UserQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
@@ -34,8 +35,8 @@ class AnswerController extends Controller
             'question_id' => 'required|string|max:255',
         ]);
 
-        $correct_answer = getAnswer($request->question_id);
-        $evaluated_answer = controlAnswer($request->user_answer, $correct_answer);
+        $correct_answer = $this->getAnswer($request->question_id);
+        $evaluated_answer = $this->controlAnswer($request->user_answer, $correct_answer);
 
         $answer = new UserQuestion();
         $answer->question_id = $request->question_id;
