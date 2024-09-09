@@ -38,9 +38,9 @@ class QuestionController extends Controller
         return view('teacher/question/create');
     }
 
-    public function edit($question_id)
+    public function edit(Request $request)
     {
-        $question = Question::where('id', $question_id)->get();
+        $question = Question::where('id', $request->id)->first();
 
         return view('teacher/question/edit')->with('question', $question);
     }
@@ -52,7 +52,7 @@ class QuestionController extends Controller
             'option_1' => 'required|string',
             'option_2' => 'required|string',
             'option_3' => 'required|string',
-            'correct_answer' => 'required|string|in:option_1,option_2,option_3|max:255',
+            'correct_answer' => 'required|string|in:' . implode(',', [$request->option_1,$request->option_2,$request->option_3]) . '|max:255',
         ]);
 
         $isRunning = true;
@@ -79,15 +79,17 @@ class QuestionController extends Controller
         return redirect()->route('question.all.teacher');
     }
 
-    public function update(Request $request, Question $question)
+    public function update(Request $request)
     {
         $request->validate([
             'question' => 'required|string',
             'option_1' => 'required|string',
             'option_2' => 'required|string',
             'option_3' => 'required|string',
-            'correct_answer' => 'required|string|in:option_1,option_2,option_3|max:255',
+            'correct_answer' => 'required|string|in:' . implode(',', [$request->option_1,$request->option_2,$request->option_3]) . '|max:255',
         ]);
+
+        $question = Question::where('id', $request->id)->first();
 
         $question->question = $request->question;
         $question->option_1 = $request->option_1;
@@ -99,8 +101,9 @@ class QuestionController extends Controller
         return redirect()->route('question.all.teacher');
     }
 
-    public function destroy(Question $question)
+    public function destroy(Request $request)
     {
+        $question = Question::where('id', $request->id)->first();
         $question->delete();
         return redirect()->route('question.all.teacher');
     }

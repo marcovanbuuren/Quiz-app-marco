@@ -18,7 +18,7 @@ class IsTeacher
     {
         if (Auth::user()->is_teacher != true)
         {
-            return redirect()->route('login');
+            return redirect()->route('register');
         }
         
         return $next($request);
