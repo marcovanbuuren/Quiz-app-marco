@@ -44,6 +44,6 @@ class AnswerController extends Controller
         $answer->user_answer = $request->user_answer;
         $answer->save();
 
-        return redirect()->route('dashboard');
+        return view('student.answer.dashboard')->with('correct_answer', $correct_answer)->with('evaluated_answer', $evaluated_answer)->with('user_answer', $request->user_answer);
     }
 }
