@@ -12,7 +12,7 @@ class AnswerController extends Controller
     //
     public function getAnswer($question_id)
     {
-        $question = Question::where('id', $id)->get();
+        $question = Question::where('id', $question_id)->first();
         return $question->correct_answer;
     }
 
@@ -44,6 +44,6 @@ class AnswerController extends Controller
         $answer->user_answer = $request->user_answer;
         $answer->save();
 
-        return redirect()->route('question.get.student');
+        return redirect()->route('dashboard');
     }
 }
