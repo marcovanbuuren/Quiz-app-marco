@@ -16,7 +16,7 @@ class ResultController extends Controller
         $results = UserQuestion::where('user_id', Auth::user()->id)->get();
         $calculatedResults = $this->calculateResult($results);
 
-        return view('student/result/dashboard')->with('results', $calculatedResults);
+        return view('student/result/dashboard')->with('result', $calculatedResults);
     }
 
     public function calculateResult($results)
@@ -24,12 +24,10 @@ class ResultController extends Controller
         $counter = 0;
         foreach ($results as $result) 
         {
-            foreach ($result->questions as $question) 
-            {  
-                if ($result->user_answer == $question->correct_answer) 
-                {
-                    $counter++;
-                }
+            $question = Question::find($result->question_id);
+            if (strtolower($result->user_answer) == strtolower($question->correct_answer)) 
+            {
+                $counter++;
             }
         }
 
